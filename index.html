@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hilda.log</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- CRT monitor bezel (16:9 1280x720 container) -->
+    <div class="crt-monitor">
+      <div class="crt-bezel">
+        <div class="crt-screen" id="screen">
+
+          <!-- Malware / motherboard backdrop -->
+          <div class="sys-bg">
+            <div class="grid-lines"></div>
+            <div class="cables"></div>
+            <div class="cable c1"></div>
+            <div class="cable c2"></div>
+            <div class="cable c3"></div>
+            <div class="chip chip-1"></div>
+            <div class="chip chip-2"></div>
+            <div class="chip chip-3"></div>
+            <div class="warning warning-1">⚠</div>
+            <div class="warning warning-2">⚠</div>
+            <div class="virus virus-1">☣</div>
+            <div class="virus virus-2">☠</div>
+            <div class="glitch-block gb1"></div>
+            <div class="glitch-block gb2"></div>
+            <div class="glitch-block gb3"></div>
+            <div class="pixel-noise"></div>
+          </div>
+
+          <!-- CRT effects -->
+          <div class="crt-scanlines"></div>
+          <div class="crt-flicker"></div>
+          <div class="crt-curve"></div>
+          <div class="crt-noise"></div>
+          <div class="crt-rgb-split"></div>
+
+          <!-- Boot / TTY console -->
+          <div id="boot-screen" class="screen active">
+            <div class="tty-frame">
+              <div class="tty-titlebar">
+                <span class="tty-dot r"></span>
+                <span class="tty-dot y"></span>
+                <span class="tty-dot g"></span>
+                <span class="tty-title">hilda.log — consola</span>
+              </div>
+              <div class="tty-body">
+                <pre id="boot-log" class="boot-log"></pre>
+                <span id="boot-cursor" class="cursor">▌</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BSOD -->
+          <div id="bsod" class="screen">
+            <div class="bsod-inner">
+              <div class="bsod-head">x x x  hilda.log  x x x</div>
+              <div class="bsod-body" id="bsod-body"></div>
+              <div class="bsod-progress">
+                <span id="bsod-percent">0%</span>
+                <span class="bsod-prog-label">RECOPILANDO INFORMACIÓN DEL ERROR</span>
+              </div>
+              <div class="bsod-bar"><div id="bsod-bar-fill"></div></div>
+            </div>
+          </div>
+
+          <!-- Desktop -->
+          <div id="desktop" class="screen">
+            <!-- Taskbar -->
+            <div class="xp-taskbar">
+              <button id="start-btn" class="xp-start">
+                <span class="xp-start-flag">◣</span> inicio
+              </button>
+              <div id="task-windows" class="xp-task-windows"></div>
+              <div id="clock" class="xp-clock">00:00</div>
+            </div>
+
+            <!-- Start menu -->
+            <div id="start-menu" class="xp-startmenu hidden">
+              <div class="xp-startmenu-head">
+                <div class="xp-avatar">H</div>
+                <div class="xp-username">hilda.log</div>
+              </div>
+              <div class="xp-startmenu-body">
+                <div class="xp-sm-item" data-app="load">▶ CARGAR PARTIDA</div>
+                <div class="xp-sm-item" data-app="config">⚙ CONFIGURACIÓN</div>
+                <div class="xp-sm-divider"></div>
+                <div class="xp-sm-item" data-app="bsod">⚠ ACTIVAR ERROR</div>
+                <div class="xp-sm-item" data-app="reboot">⟳ REINICIAR</div>
+              </div>
+            </div>
+
+            <!-- Centered main menu window -->
+            <div class="main-window" id="main-window">
+              <div class="main-titlebar">
+                <span class="main-title">hilda.log</span>
+                <div class="main-title-glyphs">
+                  <span class="title-warn">⚠</span>
+                  <span class="title-warn">☣</span>
+                </div>
+              </div>
+              <div class="main-body">
+                <div class="main-banner">
+                  <div class="main-banner-title">hilda.log</div>
+                  <div class="main-banner-sub">¿Qué habita realmente dentro de tu computadora?</div>
+                  <div class="main-banner-tag">sistema infectado // malware detectado</div>
+                </div>
+                <div class="main-buttons">
+                  <button id="btn-load" class="xp-button big">
+                    <span class="mb-ico">▶</span>
+                    <span class="mb-text">CARGAR PARTIDA</span>
+                  </button>
+                  <button id="btn-config" class="xp-button big">
+                    <span class="mb-ico">⚙</span>
+                    <span class="mb-text">CONFIGURACIÓN</span>
+                  </button>
+                </div>
+                <div class="main-foot" id="main-menu-foot">
+                  ▒▒ 3 amenazas detectadas · MEMENTO.EXE · ANEMONIA.CMD · COOLDRAKE.HTML ▒▒
+                </div>
+              </div>
+              <div class="main-corner tl"></div>
+              <div class="main-corner tr"></div>
+              <div class="main-corner bl"></div>
+              <div class="main-corner br"></div>
+            </div>
+
+            <!-- Desktop corrupted-file icon -->
+            <div class="desktop-virus" id="desktop-virus" title="¿?">
+              <div class="dv-glyph">☣</div>
+              <div class="dv-label">SEÑAL</div>
+            </div>
+
+            <!-- Window layer -->
+            <div id="window-layer"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
