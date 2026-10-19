@@ -577,43 +577,6 @@ body.fx-off .crt-curve { display: none; }
 .main-corner.bl { bottom: -4px; left: -4px; }
 .main-corner.br { bottom: -4px; right: -4px; }
 
-/* Desktop virus icon */
-.desktop-virus {
-  position: absolute;
-  top: 26px; right: 26px;
-  width: 84px;
-  padding: 8px 4px;
-  text-align: center;
-  cursor: pointer;
-  border: 2px solid transparent;
-  z-index: 14;
-  user-select: none;
-}
-.desktop-virus:hover {
-  background: rgba(255,51,85,0.12);
-  border-color: var(--neon-red);
-  box-shadow: 0 0 12px rgba(255,51,85,0.4);
-}
-.dv-glyph {
-  font-family: var(--term);
-  font-size: 34px;
-  color: var(--neon-amber);
-  text-shadow: 0 0 12px rgba(255,176,0,0.8);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-.dv-label {
-  font-family: var(--pixel);
-  font-size: 8px;
-  color: var(--neon-red);
-  text-shadow: 0 0 6px rgba(255,51,85,0.7);
-  letter-spacing: 2px;
-  margin-top: 6px;
-}
-
 /* ============================================================
    TASKBAR
    ============================================================ */
@@ -961,19 +924,7 @@ body.fx-off .crt-curve { display: none; }
   100% { transform: scaleY(0.002); opacity: 0.4; }
 }
 
-/* Corrupted-file window content */
-.mystery-text {
-  font-family: var(--term);
-  font-size: 18px;
-  line-height: 1.55;
-  color: #20321a;
-  white-space: pre-wrap;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
-}
-.mystery-text .weird {
-  color: var(--neon-magenta);
-  text-shadow: 0 0 6px rgba(255,43,214,0.4);
-}
+
 
 @media (max-width: 760px) {
   .main-banner-title { font-size: 16px; }

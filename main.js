@@ -11,7 +11,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const PROJECT_NAME = "hilda.log";
 
-// Las 3 amenazas de malware detectadas en el sistema de Hilda.
+// Amenazas de malware detectadas en el sistema de Hilda.
 const THREATS = ["MEMENTO.EXE", "ANEMONIA.CMD", "COOLDRAKE.HTML"];
 
 // ============================================================
@@ -100,7 +100,7 @@ const bootLines = [
   { t: `CARGANDO ${PROJECT_NAME}...`, cls: "ok" },
   { t: "DETECTANDO MALWARE EN SISTEMA OPERATIVO...", cls: "ok" },
   { t: "ESCANEAR PAPELERA, ARCHIVOS E INTERNET...", cls: "ok" },
-  { t: `ERROR: ${THREATS.join(", ")} DETECTADOS`, cls: "err", glitch: true },
+  { t: "ERROR: AMENAZAS DESCONOCIDAS DETECTADAS", cls: "err", glitch: true },
   { t: "RECUPERANDO ESCRITORIO DE HILDA...", cls: "ok" },
   { t: `${PROJECT_NAME} INICIADO CON ERRORES CRÍTICOS.`, cls: "err" },
 ];
@@ -166,8 +166,6 @@ const bsodMessages = [
   { t: "" },
   { t: "AMENAZA DE MALWARE CRÍTICA...", cls: "accent" },
   { t: "REVISANDO PAPELERA DE RECICLAJE Y FOTOGRAFÍAS...", cls: "accent" },
-  { t: "" },
-  { t: `Amenazas activas: ${THREATS.join(" · ")}` },
   { t: "" },
   { t: "Si esta es la primera vez que ves esta pantalla," },
   { t: "reinicia el equipo. Si vuelve a aparecer, no apagues" },
@@ -451,46 +449,23 @@ function makeToggle(on) {
 }
 
 // ============================================================
-// Corrupted-file windows (lore: archivos infectados de Hilda)
+// Nueva partida (provisional)
 // ============================================================
-const corruptedFiles = [
-  "FOTO_HILDA.jpg\n\n" +
-  "[ ARCHIVO CORRUPTO ]\n\n" +
-  "La imagen de Hilda intenta salir del .jpg.\n" +
-  "Se distorsiona al acercarse al borde.\n\n" +
-  "«Pip, ayúdame a salvar los archivos\n" +
-  " antes de que MEMENTO.EXE los borre.»",
-  "PAPELERA.log\n\n" +
-  "0x4A  FOTO_CLASE.jpg        BORRADO\n" +
-  "0x4B  TAREA_HISTORIA.doc    BORRADO\n" +
-  "0x4C  ANEMONIA.CMD          ¡ACTIVO!\n\n" +
-  "«No pulses nada raro. Anemonia\n" +
-  " se propaga por los pop-ups.»",
-  "COOLDRAKE.html\n\n" +
-  "<html><body>¡FELICIDADES! Eres el\n" +
-  "visitante 1,000,000. Haz clic\n" +
-  "aquí para reclamar tu premio...</body></html>\n\n" +
-  "«No lo abras. Es una trampa de\n" +
-  " Coldrake. Cierra la ventana.»",
-];
-let fileIdx = 0;
-function openCorruptedFile() {
-  const text = corruptedFiles[fileIdx % corruptedFiles.length];
-  fileIdx++;
+function openNewGameWindow() {
   const body = document.createElement("div");
-  body.className = "mystery-text";
-  const html = text.split("\n").map((l) => {
-    if (l.includes("«") || l.includes("¡ACTIVO")) return `<span class="weird">${escapeHtml(l)}</span>`;
-    return escapeHtml(l);
-  }).join("\n");
-  body.innerHTML = html;
-  const id = "file-" + fileIdx;
-  const win = openWindow(id, "ARCHIVO CORRUPTO — " + PROJECT_NAME, body, { width: 420, height: 300 });
-  // Pequeña posibilidad de BSOD al abrir un archivo infectado
-  if (Math.random() < 0.18) {
-    setTimeout(() => { closeWindow(id); triggerBsod("desktop"); }, 900);
-  }
+  body.className = "load-empty";
+  body.innerHTML = `
+    <div class="le-ico">✦</div>
+    <div class="le-msg">Iniciando nueva partida...</div>
+    <div class="le-hint">Hilda y Pip se preparan para entrar al sistema.</div>
+    <div class="dialog-actions">
+      <button class="xp-button" id="new-back">Volver</button>
+    </div>
+  `;
+  const win = openWindow("newgame", "Nueva partida — " + PROJECT_NAME, body, { width: 420, height: 280 });
+  win.querySelector("#new-back").addEventListener("click", () => closeWindow("newgame"));
 }
+
 function escapeHtml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -498,6 +473,7 @@ function escapeHtml(s) {
 // ============================================================
 // Wiring
 // ============================================================
+$("#btn-new").addEventListener("click", () => { ensureAudio(); openNewGameWindow(); });
 $("#btn-load").addEventListener("click", () => { ensureAudio(); openLoadWindow(); });
 $("#btn-config").addEventListener("click", () => { ensureAudio(); openConfigWindow(); });
 
@@ -523,8 +499,6 @@ $("#start-menu").addEventListener("click", (e) => {
     case "reboot": reboot(); break;
   }
 });
-
-$("#desktop-virus").addEventListener("click", () => { ensureAudio(); openCorruptedFile(); });
 
 function unlockAudioOnce() {
   ensureAudio();
